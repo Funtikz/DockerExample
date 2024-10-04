@@ -13,7 +13,7 @@ services:
       - "5400:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    command: ["postgres", "-c", "listen_addresses=*"]  # Без кавычек вокруг '*'
+    command: ["postgres", "-c", "listen_addresses=*"]  
 
   backend:
     build: ./backend/DockerExampleDB
@@ -21,6 +21,12 @@ services:
       - "8080:8080"
     depends_on:
       - db_pg_15
+
+  frontend:
+    build:
+      context: ./frontend
+    networks:
+      - dev
 
 volumes:
   postgres-data:
